@@ -1,0 +1,275 @@
+1. API 1 : Candidate Event Details
+
+Request URL: 
+PATH : /recruiter/api/challenges/9/candidate-event-details/45/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+Description
+
+
+Old Design:
+We used to return basic all points to heed. 
+New Design : 
+we will return just the required once here.
+
+{
+  "num_attempted": 7,
+  "percentile": 75,
+  "rank": 1,
+  "repeated_applicant_data": {
+    "candidate_status": "Review pending",
+    "participation_timestamp": "2019-02-18T05:01:08-06:00",
+    "report_url": "/recruiter/sample-test-3/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/"
+  },
+  "report_pdf_url": "/en-us/recruiter/relapse/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/01816b43608317a134f0a0636eb4cbb0/download/",
+  "report_share_url": "/en-us/recruiter/relapse/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/01816b43608317a134f0a0636eb4cbb0/",
+  "report_short_url": "http://hck.re/ivThGI",
+  "status": "Archived",
+  "time_analysis_data": {
+    "finish_time": "2018-12-20T11:19:28-06:00",
+    "invite_time": null,
+    "start_time": "2018-12-20T11:16:43-06:00",
+    "time_extension_data": {
+      "time_extension_duration": 35.0,
+      "time_extension_logs": [],
+      "time_extension_used": 0
+    }
+  },
+  "time_taken": 165.0,
+  "top_performer_data": {
+    "POSTGRESQL": 2
+  },
+  "total_score": 28.83
+}
+
+API 2 : Details of User
+
+Request URL: 
+PATH : /recruiter/api/users/97dbb2f819f74c5cb1701c22f4abc08e/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+{
+  "avatar": "PATH : /media/avatars/himanshumalhotra07/resized/80/8635d28img_20180106_182459.jpg",
+  "cgpa": null,
+  "company": "PSYCANE",
+  "email": "himanshumalhotra07@gmail.com",
+  "frameworks": [],
+  "graduation_year": "2017",
+  "job_title": "SUPER SENIOR SOFTWARE ENGINEER",
+  "location": "Bangalore",
+  "name": "Himanshu Malhotra",
+  "phone_number": null,
+  "resume": null,
+  "school": "SOME RANDOM UNIVERSITY",
+  "skills": [],
+  "tools": [
+    "tool 1"
+  ],
+  "years_of_experience": 1
+}
+
+3. API for Event data
+Request URL: PATH : /recruiter/api/challenges/9/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+Description : Returns basic info about event and available problem types.
+Each problem type is used to request further in the question detail API.
+
+{
+  "available_problem_types": [
+    "o",
+    "s",
+    "p",
+    "u",
+    "f",
+    "q",
+    "l",
+    "pr",
+    "dg"
+  ],
+  "candidate_count": {
+    "active_count": 3,
+    "archived_count": 1,
+    "offered_count": 0,
+    "online_count": 0,
+    "test_taken_count": 4
+  },
+  "company": "HackerEarth",
+  "company_avatar": "https://media-fastly.hackerearth.com/media/companies/3b0d7a7-he_identity.png",
+  "cutoff_score": 40,
+  "duration_seconds": 5400.0,
+  "end_date": "",
+  "end_time": "",
+  "id": 9,
+  "problem_count": 15,
+  "slug": "relapse",
+  "start_date": "Apr 03, 2017",
+  "start_time": "07:00 PM",
+  "test_link": "http://hck.re/r",
+  "title": "relapse",
+  "total_score": 286.5
+}
+
+4. API for candidate skill graph
+PATH : /recruiter/api/challenges/9/candidate-skill-graph/45/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+{
+  "1": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "HTML",
+    "total_score": 15
+  },
+  "2": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "JavaScript",
+    "total_score": 15
+  },
+  "3": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "CSS",
+    "total_score": 25
+  },
+  "4": {
+    "average_score": 3.75,
+    "candidate_score": 5,
+    "name": "POSTGRESQL",
+    "total_score": 10
+  },
+  "5": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "MSSQL",
+    "total_score": 0
+  },
+  "6": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "MYSQL",
+    "total_score": 0
+  },
+  "7": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "ORACLE_DB",
+    "total_score": 0
+  },
+  "8": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "C++",
+    "total_score": 50
+  },
+  "9": {
+    "average_score": 0,
+    "candidate_score": 0,
+    "name": "Java",
+    "total_score": 25
+  }
+}
+
+5. API for Question level details
+
+PATH : /recruiter/api/challenges/9/candidate-question-details/45/o/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+Description : For each problem type we call API for question details with following format
+candidate-question-details/event_id/problem_type/
+Which returns submission data
+
+Changes : 
+1. MCQ : In this API we will stop returning submitted_option_ids key in problems_data
+2. Programming  : we will stop returning submissions_data key in problems_data
+
+{
+  "results": {
+    "attempted_questions": 2,
+    "problems_data": [
+      {
+        "description": "<p>The answer is 1.</p>",
+        "options_data": {
+          "options": [
+            {
+              "correct": true,
+              "id": 9,
+              "value": "1"
+            },
+            {
+              "correct": false,
+              "id": 10,
+              "value": "2"
+            },
+            {
+              "correct": false,
+              "id": 11,
+              "value": "3"
+            }
+          ],
+          "submitted_option_ids": [
+            9
+          ]
+        },
+        "problem_id": 3,
+        "problem_score": 2.5,
+        "user_score": 2.5
+      },
+      {
+        "description": "<p>The answer is 2.    </p>",
+        "options_data": {
+          "options": [
+            {
+              "correct": false,
+              "id": 220,
+              "value": "1"
+            },
+            {
+              "correct": true,
+              "id": 221,
+              "value": "2"
+            },
+            {
+              "correct": false,
+              "id": 222,
+              "value": "3"
+            }
+          ],
+        },
+        "problem_id": 90,
+        "problem_score": 1,
+        "user_score": 0
+      }
+    ],
+    "total_problems_score": 3.5,
+    "total_questions": 2,
+    "total_user_score": 2.5,
+    "verbose": "Multiple Choice Questions"
+  }
+}
+
+
+Sample : For programming questions
+submission_data will not be returned for the question details
+
+{
+  "results": {
+    "attempted_questions": 2,
+    "problems_data": [
+      {
+        "description": "<p>Very sad subjective problem.</p>",
+        "private_answer": "",
+        "problem_id": 19,
+        "problem_score": 10,
+        "user_score": null
+      },
+      {
+        "description": "<p>VEry happy subJEctive problem</p>",
+        "private_answer": "",
+        "problem_id": 32,
+        "problem_score": 20,
+        "user_score": null
+      }
+    ],
+    "total_problems_score": 30,
+    "total_questions": 2,
+    "total_user_score": 24.33,
+    "verbose": "Subjective Questions"
+  }
+}

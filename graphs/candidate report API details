@@ -1,0 +1,30 @@
+How Existing flow happens
+
+Request URL: 
+PATH : /recruiter/api/challenges/9/candidate-event-details/45/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+{"status":"Archived","num_attempted":7,"report_short_url":"http://hck.re/ivThGI","report_share_url":"/en-us/recruiter/relapse/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/01816b43608317a134f0a0636eb4cbb0/","total_score":28.83,"rank":1,"percentile":75,"tab_switch_data":{"disable_tab_switch":false,"used_tab_switches":0,"allowed_tab_switches":3},"time_taken":165.0,"unassigned_scores_data":{"s":[32,19],"f":[4]},"top_performer_data":{"POSTGRESQL":2},"report_pdf_url":"/en-us/recruiter/relapse/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/01816b43608317a134f0a0636eb4cbb0/download/","repeated_applicant_data":{"candidate_status":"Review pending","participation_timestamp":"2019-02-18T05:01:08-06:00","report_url":"/recruiter/sample-test-3/candidates-report/97dbb2f819f74c5cb1701c22f4abc08e/"},"time_analysis_data":{"finish_time":"2018-12-20T11:19:28-06:00","invite_time":null,"start_time":"2018-12-20T11:16:43-06:00","time_extension_data":{"time_extension_used":0,"time_extension_duration":35.0,"time_extension_logs":[]}}}
+
+Request URL: 
+PATH : /recruiter/api/users/97dbb2f819f74c5cb1701c22f4abc08e/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+{"name":"Himanshu Malhotra","email":"himanshumalhotra07@gmail.com","phone_number":null,"job_title":"SUPER SENIOR SOFTWARE ENGINEER","company":"PSYCANE","tools":["tool 1"],"frameworks":[],"skills":[],"location":"Bangalore","cgpa":null,"graduation_year":"2017","resume":null,"school":"SOME RANDOM UNIVERSITY","avatar":"PATH : /media/avatars/himanshumalhotra07/resized/80/8635d28img_20180106_182459.jpg","years_of_experience":1}
+
+Request URL: PATH : /recruiter/api/challenges/9/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+
+{"title":"relapse","slug":"relapse","duration_seconds":5400.0,"candidate_count":{"test_taken_count":4,"offered_count":0,"online_count":0,"active_count":3,"archived_count":1},"start_date":"Apr 03, 2017","end_date":"","start_time":"07:00 PM","end_time":"","problem_count":15,"cutoff_score":40,"total_score":286.5,"available_problem_types":["o","s","p","u","f","q","l","pr","dg"],"company":"HackerEarth","company_avatar":"https://media-fastly.hackerearth.com/media/companies/3b0d7a7-he_identity.png","id":9,"test_link":"http://hck.re/r"}
+
+
+PATH : /recruiter/api/challenges/9/candidate-skill-graph/45/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+{"1":{"candidate_score":0,"average_score":0,"total_score":15,"name":"HTML"},"2":{"candidate_score":0,"average_score":0,"total_score":15,"name":"JavaScript"},"3":{"candidate_score":0,"average_score":0,"total_score":25,"name":"CSS"},"4":{"candidate_score":5,"average_score":3.75,"total_score":10,"name":"POSTGRESQL"},"5":{"candidate_score":0,"average_score":0,"total_score":0,"name":"MSSQL"},"6":{"candidate_score":0,"average_score":0,"total_score":0,"name":"MYSQL"},"7":{"candidate_score":0,"average_score":0,"total_score":0,"name":"ORACLE_DB"},"8":{"candidate_score":0,"average_score":0,"total_score":50,"name":"C++"},"9":{"candidate_score":0,"average_score":0,"total_score":25,"name":"Java"}}
+
+
+For each problem type we call API for question details with following format
+candidate-question-details/event_id/problem_type/
+Which returns submission data
+
+PATH : /recruiter/api/challenges/9/candidate-question-details/45/o/?event_id=9&user_uuid=97dbb2f819f74c5cb1701c22f4abc08e
+
+For some problem types we call submission detail API
