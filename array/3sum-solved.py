@@ -1,24 +1,4 @@
 class Solution(object):
-    def twoSum(self, nums, sum):
-        """
-        :type nums: List[int]
-        :rtype: (int, int)
-        """
-        # two sum technique to find sum as desired num
-        l = 0
-        r = len(nums) - 1
-        output = []
-        while l < r:
-            if nums[l] + nums[r] == sum:
-                output.append((nums[l], nums[r]))
-                l = l + 1
-                r = r - 1
-            elif nums[l] + nums[r] > sum:
-                r = r - 1
-            else:
-                l = l + 1
-        return output
-
     def threeSum(self, nums):
         """
         :type nums: List[int]
@@ -28,21 +8,26 @@ class Solution(object):
         length = len(nums)
         results = []
         for i in range(len(nums)-2):
-            current = nums[i]
-            if i > 0 and nums[i] == nums[i-1]:
+            if i > 0 and nums[i] == nums[i-1]: # if it's same as prev , no need
                 continue
             l = i + 1
             r = length - 1
             while l < r:
-                
-            # check two sum before this and after this index
-
-            # print 'i ', i, ' current ', -(current), 'two_sum ', two_sum
-            if two_sum:
-                for item in two_sum:
-                    output = sorted([-current, item[0], item[1]])
-                    if output not in results:
-                        results.append(output)
+                sum = nums[i] + nums[l] + nums[r]
+                if sum < 0:
+                    l = l + 1
+                elif sum > 0:
+                    r = r - 1
+                else:
+                    results.append([nums[i], nums[l], nums[r]])
+                    # to not process duplicaates
+                    while l < r and nums[l] == nums[l+1]:
+                        l = l + 1
+                    while l < r and nums[r] == nums[r-1]:
+                        r = r - 1
+                    l = l + 1
+                    r = r - 1
         return results
 
-print Solution().threeSum([1,2,-2,-1])
+
+print Solution().threeSum([-1, 2, -2, -1])

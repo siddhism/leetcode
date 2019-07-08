@@ -1,0 +1,58 @@
+diff --git a/tests/he_tests/recruiter/rest_api/candidate_report/base.py b/tests/he_tests/recruiter/rest_api/candidate_report/base.py
+index ec6512a..7cd8861 100644
+--- a/tests/he_tests/recruiter/rest_api/candidate_report/base.py
++++ b/tests/he_tests/recruiter/rest_api/candidate_report/base.py
+@@ -177,7 +177,7 @@ class BaseCandidateReportAPITest(HEAPITestCase):
+             ps = ParticipantSnapshot(event=self.event, user=self.user,
+                                      participation=self.participation)
+ 
+-            ps.snapshot.save(filename, ContentFile(file_content))
++            ps.snapshot.save(filename, ContentFile(file_content), **{'process_image': False})
+             ps.save()
+ 
+     def setup_score_assignment_reference_data(self):
+diff --git a/tests/he_tests/recruiter/rest_api/candidate_report/test_services.py b/tests/he_tests/recruiter/rest_api/candidate_report/test_services.py
+index fcd2b4d..2561e6b 100644
+--- a/tests/he_tests/recruiter/rest_api/candidate_report/test_services.py
++++ b/tests/he_tests/recruiter/rest_api/candidate_report/test_services.py
+@@ -204,6 +204,23 @@ class CandidateEventDetailServiceTest(BaseCandidateReportAPITest,
+ 
+         return valid_data
+ 
++    def get_participant_snapshot_valid_data(self):
++        """
++        Returns valid data to test the backend of
++        Points To Heed component: Candidate Snapshots
++        :return: dict
++        """
++
++        # Putting the same data which we used in setup
++        valid_data = {
++            'discrepancies_count': 0,
++            'event_enabled': False,
++            'event_history': False,
++            'participant_enabled': False,
++            'snapshots_count': 0
++        }
++        return valid_data
++
+     def get_repeated_applicant_valid_data(self):
+         """
+         Returns valid data to test the backend of
+@@ -280,6 +297,7 @@ class CandidateEventDetailServiceTest(BaseCandidateReportAPITest,
+         valid_data['repeated_applicant_data'] = self.get_repeated_applicant_valid_data()
+         valid_data['top_performer_data'] = self.get_top_performer_valid_data()
+         valid_data['unassigned_scores_data'] = self.get_unassigned_scores_valid_data()
++        valid_data['snapshot_data'] = self.get_participant_snapshot_valid_data()
+ 
+         data['top_performer_data'] = {}
+         valid_data['top_performer_data'] = {}
+@@ -496,6 +514,8 @@ class ParticipantSnapshotServiceTest(BaseCandidateReportAPITest,
+             valid_snapshots_data.append({
+                 'url': snapshot.snapshot.url,
+                 'timestamp': to_timezone(snapshot.timestamp, settings.TIME_ZONE),
++                'missing': False,
++                'multiple_user': False
+             })
+ 
+         valid_data = {'snapshots': valid_snapshots_data}
