@@ -9,25 +9,40 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        cur_nums = {}
-        n = len(nums)
-        for i in range(n):
-            cur_nums[nums[i]] = i
-        # sorted numbers
-        sorted_nums = dict(sorted(cur_nums.items(), key=lambda kv: kv[0]))
-        # now check orig numbers one by one and check at what index it is
-        out = []
-        print cur_nums
-        for num in nums:
-            original_idx = sorted_nums.get(num)
-            count = 0
-            for index, (k, v) in enumerate(sorted_nums.items()):
-                if v > idx:
-                    continue
-                count += 1
-            result = idx - count
-            print 'num ', num, ' idx ', idx, ' count ', count, ' result ', result
-            out.append(result)
-        return out
+        rank = {val: i + 1 for i, val in enumerate(sorted(set(nums)))}
+        N = len(nums)
+        res = []
+        bit = [0] * (N + 1)
+        print rank
+
+        def update(i):
+            while i <= N:
+                bit[i] += 1
+                i = i + (i & -i)
+        
+        def get_sum(i):
+            s = 0
+            while i > 0:
+                s += bit[i]
+                i = i - (i & -i)
+            return s
+
+        print ' bit init ' , bit 
+        for x in reversed(nums):
+            smaller = get_sum(rank[x] - 1)
+            update(rank[x])
+            # print 'x ', x
+            # print 'smaller than x ', x, ' -> ', smaller
+            print ' updated bit ', bit
+            res.append(smaller)
+        return res[::-1]        
+
+print Solution().countSmaller([5,2,6,1])
+
+
+
+
+
+
         
 

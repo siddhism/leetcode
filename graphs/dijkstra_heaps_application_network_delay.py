@@ -13,8 +13,23 @@ class Solution(object):
             d, node = heapq.heappop(pq)
             if node in dist: continue
             dist[node] = d
-            for nei, d2 in graph[node]:
+            for d2, nei in graph[node]:
                 if nei not in dist:
                     heapq.heappush(pq, (d+d2, nei))
 
         return max(dist.values()) if len(dist) == N else -1
+
+
+# dijsktra heaps
+
+# dist = {}
+# pq = [s]
+# while pq:
+#     d, node = heapq.heappop(pq)
+#     if node in dist:
+#         continue
+#     dist[node] = d
+#     for nei, d2 in graph[node]:
+#         if nei not in dist:
+#             heapq.heappush(pq, (d+ d2, nei))
+    

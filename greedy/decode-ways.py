@@ -31,7 +31,8 @@ class Solution(object):
             dp[1] = 1
         else:
             dp[1] = 0
-
+        # ye padhlo
+        # https://leetcode.com/problems/decode-ways/discuss/30529/Readable-Python-DP-Solution
         for i in range(2, n+1):
             c = s[i-1:i]
             two_char = s[i-2:i]

@@ -1,3 +1,8 @@
+#
+# @lc app=leetcode id=947 lang=python
+#
+# [947] Most Stones Removed with Same Row or Column
+#
 class DSU(object):
 
     def __init__(self, N):
@@ -20,18 +25,27 @@ class DSU(object):
         # self.parent[root_a] = root_b
 
     def root(self, i):
-        # with path compressoin
         if self.parent[i] != i:
+            # i = self.parent[i]
+            # self.parent[i] = i # path compression
             self.parent[i] = self.root(self.parent[i])
         return self.parent[i]
-        # without path compression
-        # while self.parent[i] != i:
-        #     i = self.parent[i]
-        # return i
 
 
-union(0, 1)
-union(1, 2)
-union(4, 5)
-union(0, 1)
-union(0, 1)
+class Solution(object):
+    def removeStones(self, stones):
+        """
+        :type stones: List[List[int]]
+        :rtype: int
+        """
+        # connect all components going row by by row in Left and down positions
+        if not stones:
+            return 0
+        N = len(stones)
+        dsu = DSU(20000)
+        for x, y in stones:
+            dsu.union(x, y + 10000)
+        return N - len({dsu.root(x) for x, y in stones})
+
+
+

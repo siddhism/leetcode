@@ -18,7 +18,7 @@ class BITree(object):
         diff = val - current
         # Update all next eligible index with diff
         index = index + 1
-        while index <= len(self.array):
+        while index < len(self.tree):
             self.tree[index] += diff
             index = self.get_next(index)
     
@@ -28,6 +28,7 @@ class BITree(object):
         sum parents until you reach zero
         """
         total = 0
+        # since tree index starts from +1 then array
         index += 1
         while index > 0:
             total += self.tree[index]
