@@ -10,20 +10,18 @@ class Solution(object):
         :type num: str
         :rtype: bool
         """
-        rev = ''
-        n = len(num)
-        print num, 
-        for i in range(n-1, -1, -1):
-            if num[i] in '23457':
+        remap = {'0': '0', '1':'1', '6': '9', '8': '8', '9': '6'}
+        new_s = ''
+        for i, c in enumerate(num):
+            if c not in remap.keys():
+                # immediate break condition, it can never be the number you want
                 return False
-            if num[i] in '018':
-                rev += num[i]
-            if num[i] == '6':
-                rev += '9'
-            if num[i] == '9':
-                rev += '6'
-        print rev            
-        return num == rev
+            new_s += remap[c]
+        # reverse it
+        new_s = new_s[::-1]
+        # check if it's equal
+        # print 'num ', num, ' new_s', new_s
+        return new_s == num
 
                 
 

@@ -24,6 +24,11 @@ class DSU(object):
         if self.parent[i] != i:
             self.parent[i] = self.root(self.parent[i])
         return self.parent[i]
+        # alt version (try) # create recursion stack to understand 5 -> root(4) -> root(3)
+        # if self.parent[i] == i:
+        #     return i
+        # self.parent[i] = self.root(self.parent[i])
+        # return self.parent[i]
         # without path compression
         # while self.parent[i] != i:
         #     i = self.parent[i]
