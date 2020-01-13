@@ -1,0 +1,50 @@
+Mongo DB basics
+
+ 
+It’s schemaless, which means you don’t need to pre-define a structure for the data before storing it.
+
+There are collections and documents. any document inside a collection doesn't have a schema enforced, they don't need to have same fields.
+Number of fields, content and size of a document can differ from another. 
+
+No complex joins -> joins can be emited if our data is structured in that way
+
+Architecture of web proctoring
+
+- Client uploads an image
+- Backend will notify our ML Service about the new image with some data, since it is a POST request, it is done by a worker which consumes message from rabbitmq
+publisher = backend, consumer = ML service
+- ML service computes the result on this image based on it's algorithm and pushes a message to backend service notifying completion with result of analysis in a json
+
+publihser = ML , consumer = backend
+
+- Consumer running on backend will run it's logic to store this data in mongo db against each participation with detection flags and metadata returned by ML service
+
+- Based on this in candidate reports it is shown
+
+
+The main idea behind Work Queues (aka: Task Queues) is to avoid doing a resource-intensive task immediately and having to wait for it to complete. Instead we schedule the task to be done later. We encapsulate a task as a message and send it to the queue. A worker process running in the background will pop the tasks and eventually execute the job. When you run many workers the tasks will be shared between them.
+
+
+The core idea in the messaging model in RabbitMQ is that the producer never sends any messages directly to a queue. Actually, quite often the producer doesn't even know if a message will be delivered to any queue at all.
+
+
+MongoDB is not atomic - 
+Atomic at a single document level, it will either update all fields or none.
+when we expect atomicity for different documents - 
+In contrast to this, consider the scenario where we may have kept the product availability and the information on who has bought the product, separately. In this case, we will first check if the product is available using the first query. Then in the second query we will update the purchase information. However, it is possible that between the executions of these two queries, some other user has purchased the product and it is no more available. Without knowing this, our second query will update the purchase information based on the result of our first query. This will make the database inconsistent because we have sold a product which is not available.
+
+
+
+Read write locking - 
+
+http://tutorials.jenkov.com/java-concurrency/read-write-locks.html#simple
+
+https://www.rabbitmq.com/tutorials/tutorial-three-python.html
+
+Combine objects into one document if you will use them together. Otherwise separate them (but make sure there should not be need of joins).
+
+Duplicate the data (but limited) because disk space is cheap as compare to compute time.
+
+Optimize your schema for most frequent use cases.
+
+

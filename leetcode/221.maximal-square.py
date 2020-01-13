@@ -23,6 +23,7 @@ class Solution(object):
                     dp[i][j] = min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1]) + 1
                     result = max(dp[i][j], result)
 
+        self.print_matrix(matrix)
         self.print_matrix(dp)
 
         return result * result
