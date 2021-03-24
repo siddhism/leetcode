@@ -21,9 +21,10 @@ class BITree(object):
         return (index +(index & -index))
 
     def update(self, index, val):
-        current = self.array[index]
+        # compute diff for updates
+        diff = val - self.array[index]
+        # update value in actual array as well
         self.array[index] = val
-        diff = val - current
         index += 1
         while(index <= len(self.array)):
             self.tree[index] += diff
